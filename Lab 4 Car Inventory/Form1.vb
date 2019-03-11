@@ -125,7 +125,7 @@ Public Class frmCarInventory
 
         End If
 
-        If tbPrice.Text IsNot Integer Then
+        If CBool(tbPrice.Text) Then
 
         End If
 
