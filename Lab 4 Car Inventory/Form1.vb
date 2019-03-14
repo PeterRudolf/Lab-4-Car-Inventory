@@ -20,6 +20,8 @@ Public Class frmCarInventory
 
     Private Sub btnReset_Click(sender As Object, e As EventArgs) Handles btnReset.Click
         Reset()
+        lvwCars.Items.Clear()
+        lblResult.Text = String.Empty
     End Sub
 
     Private Sub Reset()
@@ -28,7 +30,6 @@ Public Class frmCarInventory
         chkNew.Checked = False
         cmbMake.SelectedIndex = -1
         cmbYear.SelectedIndex = -1
-        lblResult.Text = String.Empty
         currentCarIdentificationNumber = String.Empty
     End Sub
 
@@ -45,9 +46,9 @@ Public Class frmCarInventory
 
             If currentCarIdentificationNumber.Trim.Length = 0 Then
 
-                car = New Car(cmbMake.Text, tbModel.Text, cmbYear.Text, tbPrice.Text, chkNew.Checked)
+                car = New Car(cmbMake.Text, tbModel.Text, CInt(cmbYear.Text.ToString()), CDbl(tbPrice.Text.ToString()), chkNew.Checked)
 
-                carList.Add(currentCarIdentificationNumber.ToString(), car)
+                carList.Add(car.IdentificationNumber.ToString(), car)
 
             Else
 
@@ -55,9 +56,10 @@ Public Class frmCarInventory
 
                 car.Make = cmbMake.Text
                 car.Model = tbModel.Text
-                car.Year = cmbYear.Text
-                car.Price = tbPrice.Text
+                car.Year = CInt(cmbYear.Text)
+                car.Price = CDbl(tbPrice.Text)
                 car.NewStatus = chkNew.Checked
+
             End If
 
             lvwCars.Items.Clear()
@@ -72,8 +74,10 @@ Public Class frmCarInventory
                 carItem.SubItems.Add(car.IdentificationNumber.ToString())
                 carItem.SubItems.Add(car.Make)
                 carItem.SubItems.Add(car.Model)
-                carItem.SubItems.Add(car.Year)
-                carItem.SubItems.Add(car.Price)
+                carItem.SubItems.Add(car.Year.ToString)
+                carItem.SubItems.Add(car.Price.ToString("C2"))
+
+
 
                 lvwCars.Items.Add(carItem)
 
@@ -125,7 +129,16 @@ Public Class frmCarInventory
 
         End If
 
-        If CBool(tbPrice.Text) Then
+        If IsNumeric(tbPrice.Text) = False Then
+
+            outputMessage += "The price must be a number." & vbCrLf
+
+            returnValue = False
+        ElseIf CDbl(tbPrice.Text) < 0 Then
+
+            outputMessage += "The price can not be less than zero." & vbCrLf
+
+            returnValue = False
 
         End If
 
@@ -158,9 +171,9 @@ Public Class frmCarInventory
         Dim car As Car = CType(carList.Item(currentCarIdentificationNumber), Car)
 
         tbModel.Text = car.Model
-        tbPrice.Text = car.Price
+        tbPrice.Text = CType(car.Price, String)
         cmbMake.Text = car.Make
-        cmbYear.Text = car.Year
+        cmbYear.Text = CType(car.Year, String)
         chkNew.Checked = car.NewStatus
 
     End Sub

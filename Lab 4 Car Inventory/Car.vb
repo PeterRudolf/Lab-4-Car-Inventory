@@ -6,8 +6,8 @@ Class Car
     Private carIdentificationNumber As Integer = 0
     Private carMake As String = String.Empty
     Private carModel As String = String.Empty
-    Private carYear As String = String.Empty
-    Private carPrice As String = String.Empty
+    Private carYear As Integer = 0
+    Private carPrice As Double = 0.0
     Private carNewStatus As Boolean = False
 
     Public Sub New()
@@ -17,7 +17,7 @@ Class Car
 
     End Sub
 
-    Public Sub New(make As String, model As String, year As String, price As String, newStatus As Boolean)
+    Public Sub New(make As String, model As String, year As Integer, price As Double, newStatus As Boolean)
 
         Me.New()
 
@@ -68,22 +68,28 @@ Class Car
         End Set
     End Property
 
-    Public Property Year() As String
+    Public Property Year() As Integer
         Get
             Return carYear
         End Get
-        Set(value As String)
+        Set(value As Integer)
             carYear = value
         End Set
     End Property
 
-    Public Property Price() As String
+    Public Property Price() As Double
         Get
             Return carPrice
         End Get
-        Set(value As String)
+        Set(value As Double)
             carPrice = value
         End Set
     End Property
+
+    Public Function GetCarData() As String
+
+        Return "Car - " & carMake & " " & carModel & " " & carYear.ToString() & " " & carPrice.ToString() & " " & IIf(carNewStatus = True, "New", "Used").ToString
+
+    End Function
 
 End Class
