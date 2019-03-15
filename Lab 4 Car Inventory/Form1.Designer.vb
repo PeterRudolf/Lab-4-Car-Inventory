@@ -100,8 +100,9 @@ Partial Class frmCarInventory
         Me.chkNew.Name = "chkNew"
         Me.chkNew.Size = New System.Drawing.Size(46, 24)
         Me.chkNew.TabIndex = 9
-        Me.chkNew.Text = "Ne&w:"
+        Me.chkNew.Text = "&New:"
         Me.chkNew.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.chkNew.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage
         Me.hover.SetToolTip(Me.chkNew, "Shows whether a car is new")
         Me.chkNew.UseVisualStyleBackColor = True
         '
@@ -217,7 +218,7 @@ Partial Class frmCarInventory
         Me.AcceptButton = Me.btnEnter
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.CancelButton = Me.btnExit
+        Me.CancelButton = Me.btnReset
         Me.ClientSize = New System.Drawing.Size(380, 517)
         Me.Controls.Add(Me.lblYear)
         Me.Controls.Add(Me.cmbYear)
